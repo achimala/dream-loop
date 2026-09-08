@@ -46,10 +46,6 @@ First, look at the concept art and do your best to implement it in one go, and m
 
 Write intermediate files/plans to `.dream-loop` to keep yourself on track.
 
-If Blender is installed locally and the concept involves 3D assets, prefer to model them in Blender. For complex assets, consider delegating to subagents. If the user allows the use of external assets, prefer that over modeling it yourself, unless the asset is simple. If not specified, assume you should not use external assets from the web. Do not be lazy and resort to simple shapes or procedural assets for key environmental details like scenery, flooring, buildings, etc. These will look blocky, shiny, flat, and fake. The tiny details and texturing matter and require custom sculpting.
-
-If you have an image generation tool, use it for textures, normal maps, skyboxes, etc, to enhance the visuals. This looks better and is faster than procedurally generated ones. Do not settle for plain, flat, procedural looks unless the art style requires it.
-
 When you've done everything you think is needed to achieve the target (i.e. built the product fully to the user's specifications and the standard set by the concept art), you'll submit a screenshot to the judge for review (see next section for details).
 
 Important: Before submitting to the judge, each time, review the candidate screenshot yourself and ensure it actually achieves the goals. Do not submit half-baked work to the judge. Step back, look at the screenshot and concept side-by-side, and log an hoenst assessment of whether it is or is not judge-ready. Only submit if you are confident you have significantly improved the score. You must be rigorous, objective, and transparent in this self-assessment; look at every pixel and detail. Even small touches make a big difference. Look for big stuff like missing or incorrect objects, wrong scale, perspective, or positioning. Look for small stuff like rendering glitches, flat untextured surfaces, ugly lighting (overly bright or dark), poor contrast (washed out, or overly dark, or desaturated colors), speckles, ugly shadows, etc. Scan through surface by surface, object by object, audit everything and list them out.
@@ -112,6 +108,68 @@ The judge should be given the latest live screenshot, the concept image, and (fr
 - **Stall approaching**: the best score hasn't improved by a full point in 2 rounds, or the judge has named the same gap 3 times. Stop making incremental tweaks. Step back and assess the whole frame against the concept: what about the *approach* is capping the score? Then make a big, structural change in one round: swap the asset strategy (sculpt in Blender, pull real models/textures/HDRIs from an asset library), rewrite the lighting model, rebuild the composition, change the camera. Self-check the result before it goes to the judge, since big changes break things. Only do the same-old parameter tuning if you can articulate why it would move the score this time when it didn't last time. Do not tunnel vision on incremental wins when the judge is telling you that you're completely off base.
 - **Stalled**: you've already tried at least one big structural change as above, and the best score still hasn't improved in 3 rounds, and the judge is either blocking you over extremely nitpicky things or asking for improvements that are intractable (e.g. it wants raytracing but you're on a cheap laptop with no GPU). Stop and tell the user why you think you're blocked, and give options for what to do next.
 - **None of the above**: address all or most of the judge's heavy-hitting gaps in this round, not just the top one. Rounds are expensive; make each one count. Prioritize the gaps that move the needle most relative to the concept (often things like improving lighting, textures, or sculpting fine details on meshes). Only revert if the score dropped by a full point or more: small dips are judge noise, and reverting a whole round throws out the good changes with the bad. If a specific change clearly caused a regression, undo just that change. Loop back around.
+
+## "Plus" Fallback Version
+
+Dream Loop can have very high token cost. If the user is not on a high subscription tier (e.g. instead of on ChatGPT Pro, they're on ChatGPT Plus), the full loop will hit their limit very fast.
+
+If the user does not specify that they want the default/"Pro" version of Dream Loop, you should check their subscription tier. If Plus, inform them that you are applying the Dream Loop Plus workflow instead of Pro to stay within their plan's token budget.
+
+Then make these Plus workflow modifications:
+- If you are a large, expensive model (e.g. Claude Fable, GPT-6 Astra), stop and ask the user to choose a smaller model to drive the loop (e.g. GPT-5.6 Luna on Max effort or Terra/Sol, or Claude Opus/Sonnet)
+- You own the full loop execution and coordination. You need to generate assets, build all the functionality, and make it look good. However, once you believe you're at an acceptable level of polish, instead of going straight to the judge, use a very powerful subagent (e.g. Claude Fable, GPT-6 Astra on high effort) to do a big final polish pass. It should make the scene as beautiful and aligned to the concept as possible, across layout and composition, lighting, reflections, materials, textures (using image gen if needed), normal maps (image gen if needed), animations, shaders, player behavior. Only then do you send it to the judge.
+- Do not build 3D assets yourself in Blender. Use the other options, in priority order. Do not compromise on visual quality because it's Plus mode, follow the decision tree, just skip Blender.
+- After judge submissions, for any feedback that is straightforward, fix it yourself. Only bring up more Astra-tier subagents for feedback that asks for significant improvements to its aesthetic domain described above.
+- Track quota % at start of loop, and monitor consumption. If approaching the 5h limit, or approaching 20% of weekly usage consumed by the loop, wrap up, get into as complete a state as possible, and end the loop ASAP.
+- Use Astra (or equivalent) as the judge, on lowest reasoning settings
+
+Important: Dream Loop Plus only means those modifications. It does not mean you take shortcuts or compromise on the result. Your goal remains to produce the most visually impressive result aligned to the concept, within the given constraints.
+
+## How to get 3D Assets
+
+Use custom models everywhere, and only optimize when needed, not prematurely. Only do procedural graphics when the concept art calls for it. Aim for the best visual result as your top priority. Optimize only when there's a problem.
+
+To get 3D assets follow this decision tree:
+
+### 1. Can you download an external asset?
+
+The simplest approach is to download free open-license assets from online. However, only do this if the user has granted you permission explicitly.
+
+If not permitted, or you can't find the model you need online, proceed to 2.
+
+### 2. Use a 2D-to-3D model
+
+The recommendation is to use fal.ai. Check your environment for a Fal API key. If present, use it.
+
+You are allowed to do this by default. Even if the user says "don't download assets" - that refers to step 1, not this step. Only if the user tells you not to use Fal or 2D-to-3D models should you skip this step.
+
+Assuming you find a fal.ai API key in your environment, find 2 models:
+- A strong model (like tripo3d/h3.1/image-to-3d or newer equivalent) - around $0.30/asset. Use this for large assets or key, important ones like characters, buildings, scenery.
+- A smaller model (like fal-ai/trellis or newer equivalent) - around $0.02/asset. Use this for tiles, rocks, other small environmental objects, fine details like leaves, etc.
+
+Use these liberally. Don't resort to plain procedural assets. Those almost always look bad, unless the art style really leans into them.
+
+To produce the 2D images for the assets, use your image gen tool. Pass the concept image into it and ask it to extract a clean image of just the target asset, then use that as the input for the 2D-to-3D model. This ensures it's perfectly aligned to the concept, not reimagined.
+
+If explicitly told not to use Fal/2D-to-3D or you can't find a Fal API key to use, proceed to 3.
+
+### 3. Model it in Blender
+
+Blender is the next option if installed locally. You can use its Python scripting interface.
+
+For complex assets, consider delegating to subagents. If the user allows the use of external assets, prefer that over modeling it yourself, unless the asset is simple. If not specified, assume you should not use external assets from the web. Do not be lazy and resort to simple shapes or procedural assets for key environmental details like scenery, flooring, buildings, etc. These will look blocky, shiny, flat, and fake. The tiny details and texturing matter and require custom sculpting.
+
+If Blender is unavailable, or you are in Dream Loop Plus mode, proceed to 4.
+
+### 4. Procedural
+
+If all else fails OR the asset is truly, intentionally trivial, build it in code. If you are resorting to this because you have no other option, flag this clearly to the user and inform them that the results will be worse, and that they should install Blender or add a Fal API key for best results.
+
+DO NOT just skip to 4 out of laziness or performance concerns. Follow the decision tree.
+
+### Note on textures for 3D assets (in all of the above cases)
+
+If you have an image generation tool, use it for textures, normal maps, skyboxes, etc, to enhance the visuals. This looks better and is faster than procedurally generated textures or normals. Do not settle for plain, flat, procedural looks unless the art style demands it. Textures and normals make things look realistic and impressive, do not neglect them.
 
 ## Follow-up loops
 
