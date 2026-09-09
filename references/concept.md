@@ -1,5 +1,7 @@
 ## Concept art
 
+If a target image is supplied, use it unchanged. This concept-generation procedure applies only when no target image exists or the user explicitly requests a revised target. A fresh implementation does not require a fresh concept.
+
 The concept is a realistic, high-quality, impressive target: the look of a current AAA game running in real time. Physically plausible materials (wet stone, brushed metal, cloth, glass) with real roughness and normal detail, correct proportions, atmosphere (fog, haze, rain, dust, volumetric light), cinematic lighting with a clear key and rich shadows. It should NOT be stylized or an artistic rendition, it should look like a true screenshot of the ideal result.
 
 Ensure you avoid these failure modes when generating concept art with an image gen model:

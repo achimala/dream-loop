@@ -21,7 +21,7 @@ The judge should be given the latest live screenshot, the concept image, and (fr
 >   until the overall lighting, reflections, color, and contrast is generally right.
 > - **Tier 3, materials and surfaces (5-7):** every surface reads as the right material at a glance: 
 >   Textures, roughness, translucency, wetness, reflections.
->   Ensure assets don't look obviously procedural, blocky, simple, smooth/plastic; push for elements that dominate the frame to be properly sculpted and detailed (Blender assets with high quality image-gen textures). Cap 7 until this is true.
+>   Ensure assets don't look obviously procedural, blocky, simple, smooth/plastic; push for elements that dominate the frame to be properly sculpted and detailed (detailed assets with high quality image-gen textures). Cap 7 until this is true.
 > - **Tier 4, fine detail (7-9):** the small things: texture and fine detail. Nitpick relentlessly.
 >   Look at every little object up close. Layout should align near-perfectly with the concept. Materials should look extremely convincing. Cap 9 until they are right.
 > - **Tier 5, indistinguishable (9-10):** holds up side by side and zoomed in. Nitpick every pixel.
