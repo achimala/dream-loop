@@ -42,4 +42,4 @@ Don't do this to save time or reduce complexity. Do it only because it is either
 
 ### Note on textures for 3D assets (in all of the above cases)
 
-If you have an image generation tool, use it for textures, normal maps, skyboxes, etc, to enhance the visuals. This looks better and is faster than procedurally generated textures or normals. Do not replace missing generated textures with procedural noise or flat-color substitutes. Textures and normals make things look realistic and impressive, do not skip them.
+If you have an image generation tool, use it for textures, normal maps, skyboxes, etc., to enhance the visuals. This looks better and is faster than procedurally generated textures or normals. Do not replace missing generated textures with procedural noise or flat-color substitutes. Textures and normals make things look realistic and impressive, do not skip them.
