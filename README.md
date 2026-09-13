@@ -7,7 +7,7 @@ An agent skill that builds a game, app, or scene with impressive visuals, by cre
 1. AI "dreams" up a high-quality target screenshot using image generation
 2. AI builds with this target in mind
 3. A separate AI critic compares the live screenshot to the target and provides feedback
-4. AI loops back to step 2 until critic is satisfied
+4. AI loops back to step 2 until the critic is satisfied
 5. Optionally, AI loops back to step 1 and dreams up an even better target based on the current state.
 
 ## Installation
