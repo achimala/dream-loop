@@ -12,11 +12,11 @@ If unallowed or you can't find the model you need, move on to 2.
 
 The recommendation is fal.ai. Check your environment for a Fal API key. If present, use it.
 
-For Fal requests, read [fal.md](fal.md) and use the bundled batch helper. Use Fal’s HTTP API or SDK through the shell. Only report Fal as unavailable after an actual request fails and reasonable recovery fails, or credentials/access are absent.
+For Fal requests, read [fal.md](../fal.md) and use the bundled batch helper. Use Fal’s HTTP API or SDK through the shell. Only report Fal as unavailable after an actual request fails and reasonable recovery fails, or credentials/access are absent.
 
 This does not count as "downloading assets". You are allowed to do this, even if the user says not to download internet assets (that refers to 1 above, not this).
 
-Start with the two verified endpoint/input recipes in [fal.md](fal.md), using its offline check and batch commands. The default model roles are:
+Start with the two verified endpoint/input recipes in [fal.md](../fal.md), using its offline check and batch commands. The default model roles are:
 - A strong model (like tripo3d/h3.1/image-to-3d or newer equivalent) - around $0.30/asset. Use this for large assets or key, important ones like characters, buildings, scenery, greenery.
 - A smaller model (like fal-ai/trellis or newer equivalent) - around $0.02/asset. Use this for things like small environmental/decorative objects, etc.
 
